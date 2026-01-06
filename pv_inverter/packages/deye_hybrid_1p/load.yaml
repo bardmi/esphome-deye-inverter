@@ -165,7 +165,7 @@ sensor:
         id(daily_battery_discharge).state -
         id(daily_energy_sold).state -
         id(daily_battery_charge).state -
-        id(daily_load_consumption).state
+        id(daily_load_consumption).state;
       return (losses < 0) ? 0 : losses;
     icon: "mdi:home-lightning-bolt"
 
@@ -187,4 +187,5 @@ sensor:
         return (losses < 0) ? 0 : losses;
 
     icon: "mdi:home-lightning-bolt"
+
 
