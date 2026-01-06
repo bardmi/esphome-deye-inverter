@@ -90,7 +90,7 @@ select:
     id: select_time_of_use
     name: "Time of Use Mode"
     address: 248
-    register_type: holding
+#    register_type: holding
     value_type: U_WORD
     optionsmap:
       "Disabled": 0
@@ -637,6 +637,7 @@ number:
       - number.set:
           id: time_of_use_6_soc
           value: !lambda "return x;"
+
 
 
 
