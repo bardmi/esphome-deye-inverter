@@ -91,74 +91,26 @@ select:
     name: "Time of Use Mode"
     address: 248
     register_type: holding
-    options:
-      - "Disabled"       # 0x0000 -> 0
-      - "Monday"         # 0x0003 -> 3
-      - "Tuesday"        # 0x0005 -> 5
-      - "Wednesday"      # 0x0009 -> 9
-      - "Thursday"       # 0x0011 -> 17
-      - "Friday"         # 0x0021 -> 33
-      - "Saturday"       # 0x0041 -> 65
-      - "Sunday"         # 0x0081 -> 129
-      - "Weekdays"       # 0x003F -> 63
-      - "Weekend"        # 0x00C1 -> 193
-      - "Week -Monday"    # 0x00FD -> 253
-      - "Week -Tuesday"   # 0x00FB -> 251
-      - "Week -Wednesday" # 0x00F7 -> 247
-      - "Week -Thursday"  # 0x00EF -> 239
-      - "Week -Friday"    # 0x00DF -> 223
-      - "Week -Saturday"  # 0x00BF -> 191
-      - "Week -Sunday"    # 0x007F -> 127
-      - "Week"           # 0x00FF -> 255
-      - "Enabled"        # 0x0001 -> 1
-
-    # Маппинг текстовых значений в конкретные числа (Modbus значения)
-    lambda: |-
-      uint16_t value = uint16_t(data[0] << 8 | data[1]);
-      switch (value) {
-        case 0x0000: return std::string("Disabled");
-        case 0x0003: return std::string("Monday");
-        case 0x0005: return std::string("Tuesday");
-        case 0x0009: return std::string("Wednesday");
-        case 0x0011: return std::string("Thursday");
-        case 0x0021: return std::string("Friday");
-        case 0x0041: return std::string("Saturday");
-        case 0x0081: return std::string("Sunday");
-        case 0x003F: return std::string("Weekdays");
-        case 0x00C1: return std::string("Weekend");
-        case 0x00FD: return std::string("Week -Monday");
-        case 0x00FB: return std::string("Week -Tuesday");
-        case 0x00F7: return std::string("Week -Wednesday");
-        case 0x00EF: return std::string("Week -Thursday");
-        case 0x00DF: return std::string("Week -Friday");
-        case 0x00BF: return std::string("Week -Saturday");
-        case 0x007F: return std::string("Week -Sunday");
-        case 0x00FF: return std::string("Week");
-        case 0x0001: return std::string("Enabled");
-        default: return std::string("Disabled");
-      }
-
-    write_lambda: |-
-      if (x == "Disabled") return 0x0000;
-      if (x == "Monday") return 0x0003;
-      if (x == "Tuesday") return 0x0005;
-      if (x == "Wednesday") return 0x0009;
-      if (x == "Thursday") return 0x0011;
-      if (x == "Friday") return 0x0021;
-      if (x == "Saturday") return 0x0041;
-      if (x == "Sunday") return 0x0081;
-      if (x == "Weekdays") return 0x003F;
-      if (x == "Weekend") return 0x00C1;
-      if (x == "Week -Monday") return 0x00FD;
-      if (x == "Week -Tuesday") return 0x00FB;
-      if (x == "Week -Wednesday") return 0x00F7;
-      if (x == "Week -Thursday") return 0x00EF;
-      if (x == "Week -Friday") return 0x00DF;
-      if (x == "Week -Saturday") return 0x00BF;
-      if (x == "Week -Sunday") return 0x007F;
-      if (x == "Week") return 0x00FF;
-      if (x == "Enabled") return 0x0001;
-      return 0x0000;
+    options_map:
+      "Disabled": 0
+      "Enabled": 1
+      "Monday": 3
+      "Tuesday": 5
+      "Wednesday": 9
+      "Thursday": 17
+      "Friday": 33
+      "Saturday": 65
+      "Sunday": 129
+      "Weekdays": 63
+      "Weekend": 193
+      "Week -Monday": 253
+      "Week -Tuesday": 251
+      "Week -Wednesday": 247
+      "Week -Thursday": 239
+      "Week -Friday": 223
+      "Week -Saturday": 191
+      "Week -Sunday": 127
+      "Week": 255
 
 switch:
   - platform: modbus_controller
@@ -684,5 +636,6 @@ number:
       - number.set:
           id: time_of_use_6_soc
           value: !lambda "return x;"
+
 
 
